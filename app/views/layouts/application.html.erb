@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+　　<script src="https://kit.fontawesome.com/937abadce7.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="d-flex flex-column vh-100">
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <%= link_to root_path, class: 'nav-link text-light' do %>
+            <h4>Bookers</h4>
+          <% end %>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+            <!-- ログイン中 -->
+            <% if user_signed_in? %>
+            
+            <!-- ホーム画面へ遷移 -->
+            <%= link_to user_path(current_user.id), class: 'nav-link text-light' do %>
+              <i class="fas fa-home"></i>
+                Home
+            <% end %>
+            
+            <!-- ユーザー一覧へ遷移 -->
+            <%= link_to users_path, class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-users"></i>
+                Users
+            <% end %>
+            
+            <!-- 投稿一覧へ遷移 -->
+            <%= link_to books_path, class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-book-open"></i>
+                Books
+            <% end %>
+            
+            <!-- ログアウト -->
+            <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-right-from-bracket"></i>
+                Log out
+            <% end %>
+            
+            <!-- ログインしていない状態 -->
+            <% else %>
+            
+              <!-- ホーム画面へ遷移 -->
+              <%= link_to root_path, class: 'nav-link text-light' do %>
+                <i class="fas fa-home"></i>
+                  Home
+              <% end %>
+              
+              <!-- アバウト画面へ遷移 -->
+              <%= link_to about_path, class: 'nav-link text-light' do %>
+                <i class="fa-solid fa-link"></i>
+                  About
+              <% end %>
+              
+              <!-- 新規登録画面へ遷移 -->
+              <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
+                <i class="fa-solid fa-user-plus"></i>
+                  Sign up
+              <% end %>
+              
+              <!-- ログイン画面へ遷移 -->
+              <%= link_to new_user_session_path, class: 'nav-link text-light' do %>
+                <i class="fa-solid fa-right-to-bracket"></i>
+                  Log in
+              <% end %>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="mb-auto">
+    <%= yield %>
+    </main>
+    
+  </body>
+</html>

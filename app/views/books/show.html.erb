@@ -1,0 +1,99 @@
+<body>
+ <main>
+  <p id="notice"></p>
+  <div class="container px-5 px-sm-0">
+   <div class = "row">
+    <div class="col-md-3">
+     <!-- 投稿したユーザー情報 -->
+     <%= image_tag @books.user.get_profile_image(100,100) %> 
+     <h6>name：<%= @books.user.name %></h6>
+     <h6>introduction：<%= @books.user.introduction %></h6>
+     
+     <!-- ユーザーの編集ボタン -->
+     <%= link_to edit_user_path(@books.user.id) do %>
+       <!-- 投稿者がログインユーザーの場合-->
+       <% if @user.id == current_user.id %>
+        <i class='btn btn-outline-secondary btn-block'>
+          <i class="fa-solid fa-user-gear"></i>
+        </i>
+       <% end %>
+       
+       <!-- 投稿者がログインユーザーでないの場合 -->
+       <%= link_to user_path(current_user.id) do %>
+         <% if @user.id == @books.user.id %><% end %>
+       <% end %>
+     <% end %>
+     
+     <!-- 新規投稿 -->
+     <h1>New book</h1>
+     <% if @book.errors.any? %>
+       <%= @book.errors.count %>件のエラーが発生しました
+       <ul>
+         <% @book.errors.full_messages.each do |message| %>
+           <li><%= message %></li>
+         <% end %>
+       </ul>
+     <% end %>
+     
+     <%= form_with model: @book do |f| %>
+       <h6>title</h6>
+       <%= f.text_field :title %>
+       <h6>body</h6>
+       <%= f.text_area :body %><br>
+       <%= f.submit 'Create Book' %>
+     <% end %>
+    </div>
+  
+    <div class="col-md-8 offset-md-1">
+     <h1>Book detail</h1>
+     <!-- サクセスメッセージ -->
+     <% if flash[:notice] %>
+      <p id="notice">
+       <%= flash[:notice] %>
+      </p>
+     <% end %>
+     <table class="table">
+      <div>
+        <td>
+         <%= link_to user_path(@books.user.id) do %>
+           <%= image_tag @books.user.get_profile_image(100,100) %><br>
+           <%= @books.user.name %>
+         <% end %>
+        </td>
+        
+        <td>
+          <%= link_to book_path(@books.id) do %>
+            <%= @books.title %>
+          <% end %>
+        </td>
+        
+        <td>
+          <%= @books.body %>
+        </td>
+         
+        <!-- 投稿者の場合、編集と削除ボタンを表示させる -->
+        <% if @books.user == current_user %>
+         <td>
+           <%= link_to "Edit", edit_book_path(@books)%>
+         </td>
+         <td>
+           <%= link_to "Destroy", book_path(@books), method: :delete %>
+         </td>
+        <% end %>
+       </div>
+      </table>
+    </div>
+   </div>
+  </div>
+ </main>
+
+    <footer>
+      <div class="container mt-5">
+      	<div class="row">
+        	<div class="mx-auto">
+        		<p class="text-center">CopyRight Infratop.inc</p>
+        	</div>
+        </div>
+      </div>
+    </footer>
+   </body>

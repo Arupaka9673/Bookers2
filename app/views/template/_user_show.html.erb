@@ -1,0 +1,30 @@
+<!-- ユーザー情報、新規投稿_部分テンプレート -->
+<!-- ユーザーの情報 -->
+<h1>User info</h1>
+<%= image_tag @user.get_profile_image(100,100) %>
+<h6>name：<%= @user.name %></h6>
+<h6>introduction：<%= @user.introduction %></h6>
+
+<!-- ユーザーの編集ボタン -->
+<%= link_to edit_user_path(@user.id) do %>
+    <% if @user.id == @user.id %>
+        <i class='btn btn-outline-secondary btn-block'>
+          <i class="fa-solid fa-user-gear"></i>
+        </i>
+    <% end %>
+  
+    <!-- 投稿者がログインユーザーでないの場合 -->
+    <%= link_to user_path(current_user.id) do %>
+        <% if current_user.id == @user.id %><% end %>
+    <% end %>
+<% end %>
+
+<!-- 新規投稿 -->
+<h1>New book</h1>
+<%= form_with model: @book do |f| %>
+  <h6>title</h6>
+  <%= f.text_field :title %>
+  <h6>body</h6>
+  <%= f.text_area :body %><br>
+  <%= f.submit 'Create Book' %>
+<% end %>

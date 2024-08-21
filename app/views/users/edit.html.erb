@@ -1,0 +1,51 @@
+<body>
+    <main>
+        <div class="container">
+            <div>
+                <h2  class="text-left">User info</h2>
+                  <!-- エラーメッセージ -->
+                  <% if @user.errors.any? %>
+                    <%= @user.errors.count %>件のエラーが発生しました
+                    <ul>
+                      <% @user.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                      <% end %>
+                    </ul>
+                  <% end %>
+                
+                  <%= form_with model: @user do |f| %>
+                  <!-- 名前の登録 -->
+                  <p>
+                    <label for="inputName">Name</label><br>
+                    <%= f.text_field :name, autofocus: true, id:"inputName"%>
+                  </p>
+                  
+                  <!-- 画像の登録 -->
+                  <p class="text-left"> 
+                    <label for="inputImage">Image</label><br>
+                    <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>
+                  </p>
+
+                  <!-- 紹介文の登録 -->
+                  <p class="text-left">
+                    <label for="inputIntroduction">introduction</label><br>
+                    <%= f.text_area :introduction, id:"inputIntroduction" %>
+                  </p>
+                  
+                  <!-- 変更内容を保存 -->
+                  <%= f.submit "Update User" %>
+                <% end %>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+      <div class="container mt-5">
+      	<div class="row">
+        	<div class="mx-auto">
+        		<p class="text-center">CopyRight Infratop.inc</p>
+        	</div>
+        </div>
+      </div>
+    </footer>
+</body>

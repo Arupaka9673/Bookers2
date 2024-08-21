@@ -1,0 +1,11 @@
+<%= render 'template/book_list', books: @books %>
+
+<h1>New book</h1>
+
+<%= form_with model: @book do |f| %>
+  <h6>Title</h6>
+  <%= f.text_field :title %>
+  <h6>Opinion</h6>
+  <%= f.text_area :body %>
+  <%= f.submit 'Create Book' %>
+<% end %>

@@ -1,0 +1,46 @@
+<body>
+    <main>
+        <div class="container">
+            <h1>Editing Book</h1>
+            <!-- エラーメッセージ -->
+                <% if @book.errors.any? %>
+                  <%= @book.errors.count %> error prohibited this obj from being saved:
+                  <ul>
+                    <% @book.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                <% end %>
+                
+            <%= form_with model: @book do |f| %>
+                <!-- タイトルの変更 -->
+                <p class="text-left">
+                    <label for="inputTitle">Title</label><br>
+                    <%= f.text_area :title, id: "title" %>
+                </p>
+                
+                <!-- 紹介文の変更 -->
+                <p class="text-left">
+                    <label for="inputBody">Opinion</label><br>
+                    <%= f.text_area :body, id: "body" %>
+                </p>
+                
+                <%= f.submit "Update Book" %><br>
+                
+                <%= link_to "Show", book_path(@book.id)%>
+                <h7>|</h7>
+                <%= link_to "Back", books_path %>
+            <% end %>
+        </div>
+    </main>
+</body>
+
+<footer>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="mx-auto">
+                <p>CopyRight Infratop.inc</p>
+            </div>
+        </div>
+    </div>
+</footer>

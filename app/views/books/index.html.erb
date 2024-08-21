@@ -1,0 +1,55 @@
+<body>
+ <main>
+  <p id="notice"></p>
+  <div class="container px-5 px-sm-0">
+   <div id = "error_explanation">
+    <% if @book.errors.any? %>
+     <%= @book.errors.count %> errors prohibited this obj from being saved:
+      <ul>
+       <% @book.errors.full_messages.each do |message| %>
+         <li><%= message %></li>
+       <% end %>
+      </ul>
+    <% end %>
+    </div>
+   <div class = "row">
+    
+    <div class="col-md-3">
+     <!-- ユーザー情報、新規投稿_部分テンプレート -->
+     <%= render 'template/user_show', book: @book, user: @user %>
+    </div>
+  
+    <div class="col-md-8 offset-md-1">
+     <h1>Books</h1>
+      <table class="table table-hover table-inverse">
+       
+       <thead>
+        <tr>
+         <th></th>
+         <th>Title</th>
+         <th>Opinion</th>
+         <th colspan = "3"></th>
+         </tr>
+       </thead>
+       
+       <tbody>
+        <!-- 投稿一覧_部分テンプレート -->
+        <%= render 'template/book_list', books: @books %>
+       </tbody>
+       
+      </table>
+    </div>
+   </div>
+  </div>
+ </main>
+
+    <footer>
+      <div class="container mt-5">
+      	<div class="row">
+        	<div class="mx-auto">
+        		<p class="text-center">CopyRight Infratop.inc</p>
+        	</div>
+        </div>
+      </div>
+    </footer>
+</body>
